@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ai healthcare Feedback Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url(./bg.jpg) no-repeat center center fixed;
+    }
+    .feedback-container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .feedback-container h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #007bff;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    input, textarea, select {
+      width: 97%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    textarea {
+      resize: vertical;
+    }
+    button {
+      display: block;
+      width: 100%;
+      background: #007bff;
+      color: #fff;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .thank-you {
+      display: none;
+      text-align: center;
+      color: green;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="feedback-container">
+    <h1>Feedback Form</h1>
+    <form id="feedback-form">
+      <!-- User's Name -->
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+      </div>
+
+      <!-- User's Email -->
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+      </div>
+
+      <!-- User's Age Group -->
+      <div class="form-group">
+        <label for="age-group">Age Group:</label>
+        <select id="age-group" name="age-group" required>
+          <option value="" disabled selected>Select your age group</option>
+          <option value="under-18">Under 18</option>
+          <option value="18-24">18-24</option>
+          <option value="25-34">25-34</option>
+          <option value="35-44">35-44</option>
+          <option value="45-54">45-54</option>
+          <option value="55+">55+</option>
+        </select>
+      </div>
+
+      <!-- Rating -->
+      <div class="form-group">
+        <label for="rating">Rating (1-5):</label>
+        <select id="rating" name="rating" required>
+          <option value="5">5 - Excellent</option>
+          <option value="4">4 - Good</option>
+          <option value="3">3 - Average</option>
+          <option value="2">2 - Poor</option>
+          <option value="1">1 - Very Poor</option>
+        </select>
+      </div>
+
+      <!-- Features Liked -->
+      <div class="form-group">
+        <label for="features">Features You Liked:</label>
+        <textarea id="features" name="features" rows="3" placeholder="Mention the features you liked..." required></textarea>
+      </div>
+
+      <!-- Improvements -->
+      <div class="form-group">
+        <label for="improvements">Suggestions for Improvement:</label>
+        <textarea id="improvements" name="improvements" rows="3" placeholder="Suggest how we can improve..." required></textarea>
+      </div>
+
+      <!-- Additional Comments -->
+      <div class="form-group">
+        <label for="comments">Additional Comments:</label>
+        <textarea id="comments" name="comments" rows="3" placeholder="Enter any additional feedback..."></textarea>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit">Submit Feedback</button>
+    </form>
+    <div class="thank-you" id="thank-you-message">Thank you for your feedback! Redirecting...</div>
+  </div>
+
+  <script>
+    const form = document.getElementById("feedback-form");
+    const thankYouMessage = document.getElementById("thank-you-message");
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch("/submit-feedback", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+          // Display thank you message
+          thankYouMessage.style.display = "block";
+
+          // Redirect to the previous page after 3 seconds
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 3000);
+        } else {
+          alert("Failed to submit feedback. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error submitting feedback:", error);
+        alert("An error occurred. Please try again.");
+      }
+    });
+  </script>
+</body>
+</html>

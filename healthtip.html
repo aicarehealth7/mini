@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="AI Healthcare Team" />
+  <title>Health Tips - AI Healthcare</title>
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f7fb;
+      color: #333;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Navbar */
+    nav {
+      background-color: #007bff;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-container img {
+      height: 50px;
+    }
+
+    .logo-container h1 {
+      font-size: 1.5rem;
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+
+    nav ul li {
+      margin: 0 20px;
+    }
+
+    nav ul li a {
+      color: white;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #ffd700;
+    }
+
+    /* Health Tips Section */
+    .health-tips-container {
+      padding: 60px 20px;
+      background-color: #ffffff;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+      margin: 40px auto;
+      max-width: 1200px;
+    }
+
+    .health-tips-container h1 {
+      font-size: 2.5rem;
+      color: #007bff;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .health-tips-container p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .tip-card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .tip-card {
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .tip-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .tip-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .tip-card h3 {
+      font-size: 1.5rem;
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    .tip-card p {
+      font-size: 1rem;
+      color: #555;
+    }
+
+    .tip-card a {
+      color: #007bff;
+      font-weight: 500;
+      margin-top: 10px;
+      display: block;
+      text-align: right;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #007bff;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: 500;
+    }
+
+    footer a:hover {
+      color: #ffd700;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1;
+      padding-top: 100px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 800px;
+      border-radius: 10px;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="logo-container">
+      <img src="./images/health-care-logo_981061-34281-removebg-preview-removebg-preview.png" alt="Logo" />
+      <h1>AI Healthcare Chatbot</h1>
+    </div>
+    <ul>
+      <li><a href="./about-us.html">About</a></li>
+      <li><a href="./features-page.html">Features</a></li>
+      <li><a href="./contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Rest of the content remains unchanged -->
+  <section class="health-tips-container">
+    <h1>Health Tips for a Better Life</h1>
+    <p>Maintaining a healthy lifestyle is essential to overall well-being. Here are some valuable tips to help you stay healthy and improve your quality of life.</p>
+
+    <div class="tip-card-container">
+      <!-- Updated Card 1 -->
+      <div class="tip-card">
+        <img src="./images/healthy-message-with-wooden-background.jpg" alt="Healthy Eating" />
+        <h3>Healthy Eating</h3>
+        <p>Eating a balanced diet is essential for maintaining good health. Include more fruits and vegetables...</p>
+        <a href="#" onclick="openModal('modal1')">Read More</a>
+      </div>
+
+      <!-- Updated Card 2 -->
+      <div class="tip-card">
+        <img src="./images/exersice.jpg" alt="Exercise Regularly" />
+        <h3>Exercise Regularly</h3>
+        <p>Regular physical activity helps maintain a healthy weight, improves cardiovascular health...</p>
+        <a href="#" onclick="openModal('modal2')">Read More</a>
+      </div>
+
+      <!-- Updated Card 3 -->
+      <div class="tip-card">
+        <img src="./images/sleep.png" alt="Sleep Well" />
+        <h3>Sleep Well</h3>
+        <p>Quality sleep is crucial for physical and mental well-being. Aim for 7-9 hours of uninterrupted sleep...</p>
+        <a href="#" onclick="openModal('modal3')">Read More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modals, Footer, and Scripts remain unchanged -->
+</body>
+</html>

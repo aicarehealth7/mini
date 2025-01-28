@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - AI Healthcare</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow-lg">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <a href="./dashboard.html" class="font-semibold hover:text-yellow-300">Dashboard</a>
+        <a href="resources.html" class="hover:text-yellow-300">Resources</a>
+        <a href="./healthtip.html" class="hover:text-yellow-300">Health Tips</a>
+      </div>
+      <a href="logout.html" class="hover:text-yellow-300">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Dashboard Content -->
+  <section class="container mx-auto my-8">
+    <h1 id="welcome-message" class="text-2xl font-bold text-blue-700 mb-4">Welcome, Loading...</h1>
+    <p class="text-gray-600 mb-8">Here’s an overview of your health and recent activity.</p>
+
+    <!-- Stats Section -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="text-lg font-semibold text-blue-700">Health Status</h3>
+        <p class="text-2xl font-bold text-gray-800 mt-2">Good</p>
+        <p class="text-gray-600">Last updated: Today</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="text-lg font-semibold text-blue-700">Upcoming Appointments</h3>
+        <p id="appointments-count" class="text-2xl font-bold text-gray-800 mt-2">Loading...</p>
+        <p id="next-appointment" class="text-gray-600"></p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="text-lg font-semibold text-blue-700">Messages</h3>
+        <p class="text-2xl font-bold text-gray-800 mt-2">5</p>
+        <p class="text-gray-600">Unread queries</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-6">
+    <div class="container mx-auto text-center">
+      <p>&copy; 2025 AI Healthcare Chatbot. All Rights Reserved.</p>
+      <p><a href="./terms.html" class="text-yellow-400 hover:underline">Terms of Service</a> | <a href="./privacypolicy.html" class="text-yellow-400 hover:underline">Privacy Policy</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Replace with the logged-in user's email
+    const userEmail = "user@example.com"; 
+
+    // Fetch user data
+    async function fetchUserData() {
+      try {
+        const response = await fetch(`http://localhost:5000/api/user/${userEmail}`);
+        const user = await response.json();
+
+        // Populate the dashboard with user data
+        document.getElementById('welcome-message').innerText = `Welcome, ${user.name}`;
+        document.getElementById('appointments-count').innerText = `${user.appointments.length}`;
+        if (user.appointments.length > 0) {
+          const nextAppointment = user.appointments[0];
+          document.getElementById('next-appointment').innerText = `Next: ${nextAppointment.date}, ${nextAppointment.time} with Dr. ${nextAppointment.doctor}`;
+        } else {
+          document.getElementById('next-appointment').innerText = "No upcoming appointments";
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    }
+
+    // Call fetch function on page load
+    fetchUserData();
+  </script>
+</body>
+</html>

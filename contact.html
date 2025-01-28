@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles.css/contact.css">
+  <title>Contact Us - AI Healthcare Chatbot</title>
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1239.0.min.js"></script>
+</head>
+<body>
+  <header class="contact-header">
+    <h1>Contact Us</h1>
+    <p>Have questions or need help? Reach out to us!</p>
+  </header>
+
+  <main class="contact-container">
+    <div class="contact-info">
+      <h2>Get in Touch</h2>
+      <p><strong>Email:</strong> support@aicarehealth.in</p>
+      <p><strong>Phone:</strong> +91 9390826652</p>
+      <p><strong>Address:</strong> Hyderabad, Telangana, 500072</p>
+    </div>
+
+    <div class="contact-form-container">
+      <h2>Send Us a Message</h2>
+      <form id="contact-form">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" placeholder="Enter the subject" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="upload">Upload the error file</label>
+          <input type="file" id="upload" name="upload" placeholder="Upload the error">
+        </div>
+        <button type="submit" class="btn-submit">Send Message</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 AI Healthcare Chatbot. All Rights Reserved.
+    <br>
+    <small>Designed and Developed by AI Healthcare Team.</small>       <small><a style="color: aqua;" href="./terms.html">Terms of Service</a> | <a style="color: aqua;" href="./privacypolicy.html">Privacy Policy</a></small>
+  </footer>
+
+  <script src="./contact.js"></script>
+</body>
+</html>

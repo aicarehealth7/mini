@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - AI Healthcare Chatbot</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #007BFF;
+      --secondary-color: #0056b3;
+      --accent-color: #4CAF50;
+      --background-pattern: url('https://www.transparenttextures.com/patterns/diagonal-stripes-light.png');
+      --text-light: #FFFFFF;
+      --text-dark: #333333;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-dark);
+      background: var(--background-pattern), linear-gradient(135deg, #f4f7fa, #e9ecef);
+      background-size: 300px 300px, cover;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    header p {
+      font-size: 1.25rem;
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    section {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    section h2 {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    section p, ul {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text-dark);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    ul li::before {
+      content: '\2713';
+      position: absolute;
+      left: 0;
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .team-member {
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .team-member img {
+      border-radius: 50%;
+      border: 4px solid var(--primary-color);
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+
+    .team-member h3 {
+      font-size: 1.2rem;
+      color: var(--text-dark);
+    }
+
+    .team-member p {
+      font-size: 1rem;
+      color: var(--primary-color);
+    }
+
+    .team-member:hover {
+      transform: translateY(-10px);
+    }
+
+    button {
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      padding: 0.75rem 2rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: var(--secondary-color);
+    }
+
+    footer {
+      background-color: #333;
+      color: var(--text-light);
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: auto;
+    }
+
+    footer a {
+      color: var(--text-light);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>About Us</h1>
+    <p>Innovating Healthcare with AI</p>
+  </header>
+
+  <main>
+    <!-- Introduction Section -->
+    <section>
+      <h2>Who We Are</h2>
+      <p>
+        At <strong>AI Healthcare Chatbot</strong>, our mission is to simplify healthcare for everyone by harnessing cutting-edge AI technology. We empower individuals with accurate health insights, enabling informed decisions.
+      </p>
+    </section>
+
+    <!-- Mission and Vision Section -->
+    <section>
+      <h2>Our Mission & Vision</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2">
+        <div>
+          <h3>Our Mission</h3>
+          <p>
+            To harness AI's potential in delivering accessible, accurate, and personalized healthcare assistance worldwide.
+          </p>
+        </div>
+        <div>
+          <h3>Our Vision</h3>
+          <p>
+            To become a global leader in AI-powered healthcare, creating a healthier and more informed world.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What We Offer Section -->
+    <section>
+      <h2>What We Offer</h2>
+      <ul>
+        <li>Real-time AI-driven symptom checker.</li>
+        <li>Personalized health recommendations.</li>
+        <li>Secure and confidential consultations.</li>
+        <li>24/7 accessibility to health information.</li>
+        <li>Integration with healthcare facilities for emergency assistance.</li>
+      </ul>
+    </section>
+
+    <!-- Team Section -->
+    <section>
+      <h2>Meet Our Team</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
+        <div class="team-member">
+          <img src="https://via.placeholder.com/120" alt="Team Leader">
+          <h3>Shashank Koukuntla</h3>
+          <p>Team Leader</p>
+        </div>
+        <div class="team-member">
+          <img src="https://via.placeholder.com/120" alt="AI Developer">
+          <h3>Sai Sameer</h3>
+          <p>AI Developer</p>
+        </div>
+        <div class="team-member">
+          <img src="https://via.placeholder.com/120" alt="Backend Developer">
+          <h3>Satya Sai</h3>
+          <p>Backend Developer</p>
+        </div>
+        <div class="team-member">
+          <img src="https://via.placeholder.com/120" alt="Frontend Developer">
+          <h3>Yeshwant</h3>
+          <p>Frontend Developer</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Emergency Section -->
+    <section>
+      <h2>Emergency Support</h2>
+      <p>
+        Our AI system is ready to assist in emergencies by connecting you to healthcare providers and guiding you through urgent protocols. Press the button below for immediate help.
+      </p>
+      <button>SOS Emergency</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 AI Healthcare Chatbot | <a href="./privacypolicy.html">Privacy Policy</a> | <a href="./contact.html">Contact Us</a></p>
+  </footer>
+
+</body>
+</html>

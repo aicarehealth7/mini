@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Healthcare - Home</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.12.0/cdn.min.js" defer></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow-lg">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <a href="dashboard.html" class="hover:text-yellow-300">Dashboard</a>
+        <a href="resources.html" class="hover:text-yellow-300">Resources</a>
+        <a href="health-tips.html" class="hover:text-yellow-300">Health Tips</a>
+      </div>
+      <div class="relative" x-data="{ open: false }">
+        <button @click="open = !open" class="relative z-10 focus:outline-none">
+          My Profile
+        </button>
+        <div x-show="open" @click.outside="open = false" class="absolute right-0 mt-2 w-48 bg-white text-gray-700 rounded-lg shadow-lg overflow-hidden z-20">
+          <a href="profile.html" class="block px-4 py-2 hover:bg-gray-200">View Profile</a>
+          <a href="settings.html" class="block px-4 py-2 hover:bg-gray-200">Settings</a>
+          <a href="logout.html" class="block px-4 py-2 hover:bg-gray-200">Logout</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-b from-blue-500 to-blue-700 text-white py-16">
+    <div class="container mx-auto text-center">
+      <img src="images/health-care-logo_981061-34281-removebg-preview-removebg-preview.png" alt="AI Logo" class="mx-auto mb-4 w-24 h-24">
+      <h1 class="text-4xl font-bold mb-2">Welcome Back, [User's Name]</h1>
+      <p class="text-lg mb-6">Your health companion is here to assist you.</p>
+      <div class="space-x-4">
+        <a href="chatbot.html" class="bg-yellow-400 text-gray-800 px-6 py-3 rounded-lg shadow hover:bg-yellow-300">Start Chatting</a>
+        <a href="profile.html" class="bg-white text-blue-700 px-6 py-3 rounded-lg shadow border border-white hover:bg-blue-100">Update Profile</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chat Section -->
+  <div class="container mx-auto mt-8 grid grid-cols-3 gap-6">
+    <aside class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-xl font-semibold text-blue-700 mb-4">Quick Access</h3>
+      <ul class="space-y-2">
+        <li><a href="symptom-checker.html" class="block text-gray-700 hover:text-blue-500">Symptom Checker</a></li>
+        <li><a href="appointment.html" class="block text-gray-700 hover:text-blue-500">Appointments</a></li>
+        <li><a href="nearby-hospitals.html" class="block text-gray-700 hover:text-blue-500">Nearby Hospitals</a></li>
+      </ul>
+    </aside>
+    <div class="col-span-2 bg-white p-6 rounded-lg shadow flex flex-col">
+      <div id="chatMessages" class="flex-1 overflow-y-auto mb-4">
+        <!-- Chat messages will appear here -->
+      </div>
+      <div class="flex items-center space-x-4">
+        <textarea id="chatInput" class="flex-1 border border-gray-300 rounded-lg p-2" placeholder="Type your message..."></textarea>
+        <button onclick="sendMessage()" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-6 mt-8">
+    <div class="container mx-auto text-center">
+      <p>&copy; 2025 AI Healthcare Chatbot. All Rights Reserved.</p>
+      <p><a href="terms.html" class="text-yellow-400 hover:underline">Terms of Service</a> | <a href="privacy.html" class="text-yellow-400 hover:underline">Privacy Policy</a></p>
+    </div>
+  </footer>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const messages = document.getElementById('chatMessages');
+
+      if (input.value.trim()) {
+        const userMessage = document.createElement('div');
+        userMessage.textContent = input.value;
+        userMessage.classList.add('self-end', 'bg-blue-500', 'text-white', 'rounded-lg', 'p-2', 'mb-2');
+
+        messages.appendChild(userMessage);
+        input.value = '';
+
+        // Simulate bot reply
+        setTimeout(() => {
+          const botMessage = document.createElement('div');
+          botMessage.textContent = 'Thank you for your query. Our AI assistant will respond shortly.';
+          botMessage.classList.add('self-start', 'bg-gray-200', 'text-gray-700', 'rounded-lg', 'p-2', 'mb-2');
+
+          messages.appendChild(botMessage);
+        }, 1000);
+      }
+    }
+  </script>
+
+</body>
+</html>

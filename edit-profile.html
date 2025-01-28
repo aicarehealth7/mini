@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f7fa;
+      color: #333;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #007bff;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input, select {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .cancel-btn {
+      background: #ccc;
+      margin-top: 10px;
+    }
+
+    .cancel-btn:hover {
+      background: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Edit Profile</h1>
+    <form id="editProfileForm">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" readonly>
+
+      <label for="phone">Phone</label>
+      <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+
+      <label for="age">Age</label>
+      <input type="number" id="age" name="age" placeholder="Enter your age" required>
+
+      <button type="submit">Save Changes</button>
+      <button type="button" class="cancel-btn" onclick="window.location.href='./user.html';">Cancel</button>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const loggedInUserEmail = localStorage.getItem('loggedInUserEmail'); // Assume email is stored after login
+
+      if (!loggedInUserEmail) {
+        alert('User not logged in. Redirecting to login...');
+        window.location.href = './login.html'; // Redirect to login if email is not found
+        return;
+      }
+
+      try {
+        const response = await fetch(`http://localhost:5000/api/user/details?email=${loggedInUserEmail}`);
+        const userData = await response.json();
+
+        if (response.ok) {
+          document.getElementById('name').value = userData.name;
+          document.getElementById('email').value = userData.email;
+          document.getElementById('phone').value = userData.mobile;
+          document.getElementById('age').value = userData.age;
+        } else {
+          alert('Failed to fetch user details: ' + userData.message);
+        }
+      } catch (error) {
+        console.error('Error fetching user details:', error);
+      }
+    });
+
+    document.getElementById('editProfileForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const loggedInUserEmail = localStorage.getItem('loggedInUserEmail');
+      const updatedName = document.getElementById('name').value;
+      const updatedPhone = document.getElementById('phone').value;
+      const updatedAge = document.getElementById('age').value;
+
+      try {
+        const response = await fetch('http://localhost:5000/api/user/update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: loggedInUserEmail, name: updatedName, mobile: updatedPhone, age: updatedAge }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alert('Profile updated successfully!');
+        } else {
+          alert('Failed to update profile: ' + result.message);
+        }
+      } catch (error) {
+        console.error('Error updating profile:', error);
+      }
+    });
+  </script>
+</body>
+</html>

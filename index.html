@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ai healthcare home</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background: #f5f7fa;
+      color: #333;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Navbar Styles */
+    nav {
+      background: linear-gradient(90deg, #007bff, #0056b3);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      position: relative;
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 10px 15px;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    nav ul li a .arrow{
+      width: 10px;
+      color: white;
+    }
+
+    nav ul li a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 5px;
+    }
+
+    /* Dropdown Menu Styles */
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%; /* Position below the parent */
+      left: 0;
+      background-color: #ffffff;
+      color: #333;
+      min-width: 180px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    .dropdown-menu li {
+      padding: 0;
+      margin: 0;
+    }
+
+    .dropdown-menu li a {
+      display: block;
+      padding: 10px 15px;
+      font-size: 0.95rem;
+      color: #333;
+      text-align: left;
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-menu li a:hover {
+      background-color: #007bff;
+      color: white;
+    }
+
+    /* Show Dropdown on Click */
+    .dropdown.active .dropdown-menu {
+      display: block;
+    }
+
+    /* Responsive Navbar Button Group */
+    nav .btn-group a {
+      padding: 8px 15px;
+      margin-left: 10px;
+      background-color: white;
+      color: #007bff;
+      border-radius: 5px;
+      font-weight: 500;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    nav .btn-group a:hover {
+      background-color: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+
+    /* Hero Section */
+.hero {
+  background: linear-gradient(to bottom, #007bff, #0056b3);
+  color: white;
+  padding: 60px 20px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+/* Image Styling */
+.hero img {
+  width: auto;
+  height: 120px; /* Set a fixed height */
+  max-width: 100%; /* Make it responsive */
+  margin-bottom: 20px;
+}
+
+.hero .btn-group a {
+  padding: 15px 30px;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+.btn-primary {
+  background-color: #ffd700;
+  color: #333;
+}
+
+.btn-primary:hover {
+  background-color: #ffc107;
+}
+
+.btn-secondary {
+  background-color: white;
+  color: #007bff;
+  border: 2px solid #007bff;
+}
+
+.btn-secondary:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.hero .btn-group a, .hero #locationButton {
+      padding: 10px 30px;
+      font-size: 1rem;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background-color: #ffd700;
+      color: #333;
+    }
+
+    .btn-primary:hover {
+      background-color: #ffc107;
+    }
+
+    .btn-secondary {
+      background-color: white;
+      color: #007bff;
+      border: 2px solid #007bff;
+    }
+
+    .btn-secondary:hover {
+      background-color: #007bff;
+      color: white;
+    }
+
+
+
+
+    /* Content Placeholder */
+    .content {
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .content h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #007bff;
+    }
+
+    .content p {
+      line-height: 1.8;
+      color: #555;
+    }
+    /* Subscribe Section */
+.subscribe {
+  background: #007bff; /* Blue background */
+  padding: 30px 20px;
+  text-align: center;
+  color:#fff;
+  margin-top: 40px; /* Space above the subscribe section */
+}
+
+.subscribe p {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.email input {
+  padding: 10px;
+  width: 250px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.email button {
+  padding: 10px 20px;
+  background-color: #ffd700;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px; /* Add space between input and button */
+}
+
+.email button:hover {
+  background-color: #ffc107;
+}
+
+footer {
+  background: #343a40; /* Dark gray background */
+  color: white; /* White text */
+  padding: 20px; /* Padding for spacing */
+  text-align: center; /* Center-align text */
+  font-size: 0.9rem; /* Adjust font size */
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow on top */
+  border-top: 2px solid #007bff; /* Add a blue border on top */
+}
+
+footer small {
+  font-size: 0.8rem; /* Smaller text for credit */
+  color: #fff; /* Light gray for credit text */
+}
+
+footer small:hover {
+  color: #ffd700; /* Golden hover effect */
+}
+
+  /* Loader Styles */
+  .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            flex-direction: column;
+        }
+
+        .loader .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #6e8efb;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        .loader p {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <ul>
+      <li class="dropdown">
+        <a href="javascript:void(0);" onclick="toggleDropdown(event)">Resources <img src="images/arrow-down-sign-to-navigate.png" class="arrow" id="arrow"></a>
+        <ul class="dropdown-menu">
+          <li><a href="./symptoms.html">Symptom Checker</a></li>
+          <li><a href="./healthtip.html">Health Tips</a></li>
+          <li><a href="./emergence.html">Emergency Assistance</a></li>
+          <li><a href="./appointment.html">Appointment Booking</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0);" onclick="toggleDropdown(event)">Company  <img src="images/arrow-down-sign-to-navigate.png" class="arrow" id="arrow"></a>
+        <ul class="dropdown-menu">
+          <li><a href="./about-us.html">About Us</a></li>
+          <li><a href="./features-page.html">Features</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+          <li><a href="./feedback.html">Feedback</a></li>
+          <li><a href="./careers.html">Careers</a></li>
+          <li><a href="./blog.html">Blogs</a></li>
+        </ul>
+      </li>
+      <li><a href="./about-us.html">About Us</a></li>
+      <li><a href="./fqa.html">FAQs</a></li>
+    </ul>
+    <div class="btn-group">
+      <a href="./login.html">Login</a>
+      <a href="./admin.html">Admin</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+<section class="hero"><a href="./index.html">
+  <img src="images/health-care-logo_981061-34281-removebg-preview-removebg-preview.png" alt="AI Logo" /></a>
+  <h1>Welcome to AI Healthcare</h1>
+  <p>Your trusted companion for instant healthcare assistance</p>
+  <div class="btn-group">
+    <a href="./login.html" class="btn-primary">Start Chatting</a>
+    <a href="./about-us.html" class="btn-secondary">Learn More</a>
+  </div>
+  
+  <!-- Location Button -->
+  <div class="btn-group" style="margin-top: 15px;">
+    <button id="locationButton" class="btn-primary" onclick="getLocation()">Find Nearby Health center</button>
+  </div>
+</section>
+
+
+  <!-- Content -->
+  <div class="content">
+    <h1>Explore Our Features</h1>
+    <p>Discover our AI-powered tools that provide personalized healthcare assistance. Use the navigation bar to explore resources like symptom checkers, health tips, and appointment booking. Our company is committed to delivering a secure and innovative healthcare experience.</p>
+  </div>
+
+  <section class="subscribe">
+    <p>Subscribe to our Updates</p>
+    <p>Get the latest healthcare tips and chatbot updates directly in your inbox.</p>
+    <div class="email">
+      <input type="email" placeholder="Enter your email" />
+      <button>Subscribe</button>
+    </div>
+  </section>
+    <!-- Navbar -->
+    <div class="loader" id="loader">
+      <div class="spinner"></div>
+      <p id="loader-text">Welcome to AI Healthcare Chatbot</p>
+  </div>
+
+  <!-- JavaScript for Dropdown -->
+  <script>
+    window.onload = function() {
+            const loader = document.getElementById('loader');
+            const loaderText = document.getElementById('loader-text');
+            loader.style.display = 'flex';
+            loaderText.textContent = 'Welcome to AI Healthcare Chatbot';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 2000);
+        };
+    function toggleDropdown(event) {
+      const parent = event.target.closest('.dropdown');
+      parent.classList.toggle('active');
+
+      // Close other dropdowns if open
+      document.querySelectorAll('.dropdown').forEach(dropdown => {
+        if (dropdown !== parent) {
+          dropdown.classList.remove('active');
+        }
+      });
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function (event) {
+      if (!event.target.closest('.dropdown')) {
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+          dropdown.classList.remove('active');
+        });
+      }
+    });
+
+    function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+      // For demonstration, log the location.
+      console.log("Latitude: " + latitude + " Longitude: " + longitude);
+
+      // You can use these coordinates to call an API to get nearby healthcare centers.
+      // Example API call for fetching nearby hospitals (replace with real API).
+      fetch(`https://api.example.com/nearby?lat=${latitude}&lng=${longitude}`)
+        .then(response => response.json())
+        .then(data => {
+          // Process data to display nearby healthcare centers
+          console.log(data);
+        })
+        .catch(error => console.error("Error fetching nearby healthcare: ", error));
+    });
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+}
+
+  </script>
+
+<footer>
+    &copy; 2025 AI Healthcare Chatbot. All Rights Reserved.
+    <br>
+    <small>Designed and Developed by AI Healthcare Team.</small>       <small><a href="./terms.html">Terms of Service</a> | <a href="./privacypolicy.html">Privacy Policy</a></small>
+  </footer>
+  
+</body>
+</html>

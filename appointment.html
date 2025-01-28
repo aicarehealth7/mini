@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book an Appointment</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .help-nav {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+  }
+
+  header h1{
+    color:#007bff;
+    font-size: 2.5em;
+    font-weight: bold;
+    line-height: 1.2;
+    margin: 0;
+    flex: 1;
+    text-align: left;
+    padding: 20px;
+  
+
+  }
+  
+  .help-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #00aaff; /* Blue background */
+    color: rgb(255, 255, 255); /* White text */
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .help-button:hover {
+    background-color: #4ecef1; 
+    margin-top: 3px;
+    border-radius: 10px;
+  }
+
+    .appointment-container {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 400px;
+      text-align: center;
+    }
+
+    .appointment-container h2 {
+      margin-bottom: 20px;
+      color: #007bff;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      background-color: #007bff;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .success-message {
+      margin-top: 20px;
+      font-size: 18px;
+      color: green;
+      display: none;
+    }
+
+    .error-message {
+      margin-top: 20px;
+      font-size: 18px;
+      color: red;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+    <nav class="help-nav">
+        <a href="./contact.html" class="help-button">Help</a>
+    </nav>
+    <header>
+        <h1 class="page-title">AI <br>Healthcare<br> Chatbot</h1>
+    </header>
+    
+
+  <div class="appointment-container">
+    <h2>Book Your Appointment</h2>
+
+    <div class="input-group">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" placeholder="Enter your full name" required>
+    </div>
+
+    <div class="input-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter your email" required>
+    </div>
+
+    <div class="input-group">
+      <label for="appointment-date">Appointment Date</label>
+      <input type="date" id="appointment-date" required>
+    </div>
+
+    <div class="input-group">
+      <label for="appointment-time">Appointment Time</label>
+      <input type="time" id="appointment-time" required>
+    </div>
+
+    <div class="input-group">
+      <label for="specialty">Specialty</label>
+      <select id="specialty" required>
+        <option value="">Select Specialty</option>
+        <option value="General Checkup">General Checkup</option>
+        <option value="Dermatology">Dermatology</option>
+        <option value="Cardiology">Cardiology</option>
+        <option value="Orthopedics">Orthopedics</option>
+        <!-- Add more specialties as needed -->
+      </select>
+    </div>
+
+    <button id="submitAppointment">Book Appointment</button>
+
+    <div class="success-message" id="successMessage">
+      Your appointment has been successfully booked!
+    </div>
+
+    <div class="error-message" id="errorMessage">
+      There was an error with your booking. Please try again.
+    </div>
+  </div>
+
+  <script>
+    const submitButton = document.getElementById('submitAppointment');
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
+
+    // Event listener for the appointment booking form
+    submitButton.addEventListener('click', function() {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const appointmentDate = document.getElementById('appointment-date').value;
+      const appointmentTime = document.getElementById('appointment-time').value;
+      const specialty = document.getElementById('specialty').value;
+
+      // Validate input
+      if (!name || !email || !appointmentDate || !appointmentTime || !specialty) {
+        errorMessage.style.display = 'block';
+        successMessage.style.display = 'none';
+        return;
+      }
+
+      // Send the data to the backend to save the appointment
+      fetch('http://127.0.0.1:5000/book_appointment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          appointmentDate: appointmentDate,
+          appointmentTime: appointmentTime,
+          specialty: specialty
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          successMessage.style.display = 'block';
+          errorMessage.style.display = 'none';
+        } else {
+          errorMessage.style.display = 'block';
+          successMessage.style.display = 'none';
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        errorMessage.style.display = 'block';
+        successMessage.style.display = 'none';
+      });
+    });
+  </script>
+
+</body>
+</html>
+

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="AI Healthcare Team" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <title>Emergency Assistance - AI Healthcare</title>
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      background: #f5f7fa;
+      color: #333;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Navbar */
+    nav {
+      background-color: #007bff;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+
+    nav ul li {
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      color: white;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #ffd700;
+    }
+
+    nav .logo img {
+      height: 50px;
+    }
+
+    nav .btn-group a {
+      padding: 8px 15px;
+      margin-left: 10px;
+      background-color: white;
+      color: #007bff;
+      border-radius: 5px;
+      font-weight: 500;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    nav .btn-group a:hover {
+      background-color: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(to bottom, #007bff, #0056b3);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .hero img {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    .hero .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .hero .btn-group a {
+      padding: 15px 30px;
+      font-size: 1rem;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: #ffd700;
+      color: #333;
+    }
+
+    .btn-primary:hover {
+      background-color: #ffc107;
+    }
+
+    .btn-secondary {
+      background-color: white;
+      color: #007bff;
+      border: 2px solid #007bff;
+    }
+
+    .btn-secondary:hover {
+      background-color: #007bff;
+      color: white;
+    }
+
+    /* Emergency Assistance Section */
+    .emergency-assistance {
+      padding: 60px 20px;
+      text-align: center;
+      background: #f5f7fa;
+    }
+
+    .emergency-assistance h2 {
+      color: #007bff;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .emergency-assistance p {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 30px;
+      line-height: 1.8;
+    }
+
+    .assistance-button {
+      padding: 15px 30px;
+      font-size: 1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .assistance-button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Form Section */
+    .form-container {
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+
+    .form-container h3 {
+      margin-bottom: 20px;
+      color: #007bff;
+    }
+
+    .form-container label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-container input,
+    .form-container textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-container button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .form-container button:hover {
+      background-color: #0056b3;
+    }
+
+    footer {
+  background: #343a40; /* Dark gray background */
+  color: white; /* White text */
+  padding: 20px; /* Padding for spacing */
+  text-align: center; /* Center-align text */
+  font-size: 0.9rem; /* Adjust font size */
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow on top */
+  border-top: 2px solid #007bff; /* Add a blue border on top */
+}
+
+footer small {
+  font-size: 0.8rem; /* Smaller text for credit */
+  color: #fff; /* Light gray for credit text */
+}
+
+footer small:hover {
+  color: #ffd700; /* Golden hover effect */
+}
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">
+      <img src="./health-care-logo_981061-34281-removebg-preview-removebg-preview.png" alt="Logo" />
+    </div>
+    <ul>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#emergency-assistance">Emergency Assistance</a></li>
+      <li><a href="#faq">FAQs</a></li>
+    </ul>
+    <div class="btn-group">
+      <a href="./login.html">Login</a>
+      <a href="./adminlogin.html">Admin</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <img src="./health-care-logo_981061-34281-removebg-preview-removebg-preview.png" alt="AI Logo" />
+    <h1>Welcome to AI Healthcare</h1>
+    <p>Your trusted companion for instant healthcare assistance</p>
+    <div class="btn-group">
+      <a href="./login.html" class="btn-primary">Start Chatting</a>
+      <a href="#about" class="btn-secondary">Learn More</a>
+    </div>
+  </section>
+
+  <!-- Emergency Assistance Section -->
+  <section id="emergency-assistance" class="emergency-assistance">
+    <h2>Emergency Assistance</h2>
+    <p>If you are facing a medical emergency, please do not hesitate to contact emergency services immediately. In case of immediate medical attention, we offer guidance and resources to help you.</p>
+    <p>Click the button below to get help or more information on medical emergency procedures.</p>
+    <button class="assistance-button">Request Assistance</button>
+  </section>
+
+  <!-- Form Section -->
+  <div class="form-container" id="emergency-form">
+    <h3>Emergency Assistance Form</h3>
+    <form id="emergencyForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required />
+    
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
+    
+      <label for="mobile">Mobile Number:</label>
+      <input type="text" id="mobile" name="mobile" required />
+    
+      <label for="address">Address:</label>
+      <textarea id="address" name="address" rows="3" required></textarea>
+    
+      <label for="emergencyDetails">Emergency Details:</label>
+      <textarea id="emergencyDetails" name="emergencyDetails" rows="4" required></textarea>
+    
+      <button type="submit">Submit</button>
+    </form>
+    
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2024 AI Healthcare Chatbot. All Rights Reserved.
+    <br>
+    <small>Designed and Developed by AI Healthcare Team</small>
+  </footer>
+
+  <!-- JavaScript for Button and Form -->
+  <!-- JavaScript for Button and Form -->
+<script>
+  // Select the "Request Assistance" button and form container
+  const assistanceButton = document.querySelector('.assistance-button');
+  const emergencyFormContainer = document.getElementById('emergency-form');
+
+  // Add event listener to show the form when the button is clicked
+  assistanceButton.addEventListener('click', () => {
+    emergencyFormContainer.style.display = 'block'; // Make the form visible
+    assistanceButton.style.display = 'none'; // Optionally hide the button
+  });
+
+  // Add event listener for form submission
+  document.getElementById("emergencyForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      mobile: document.getElementById("mobile").value,
+      address: document.getElementById("address").value,
+      emergencyDetails: document.getElementById("emergencyDetails").value,
+    };
+
+    try {
+      const response = await fetch("https://hu6u32kht0.execute-api.ap-south-1.amazonaws.com/prod", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+      alert(result.message);
+
+      // Hide the form and optionally reset it after submission
+      emergencyFormContainer.style.display = 'none';
+      assistanceButton.style.display = 'block'; // Show the button again
+    } catch (err) {
+      console.error("Error:", err);
+      alert("Failed to submit request.");
+    }
+  });
+</script>
+
+
+</body>
+</html>

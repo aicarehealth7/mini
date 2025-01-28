@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #4e54c8, #8f94fb);
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-container {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      padding: 30px 25px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-container h1 {
+      margin: 0;
+      text-align: center;
+      color: #4e54c8;
+      font-size: 24px;
+      margin-bottom: 25px;
+    }
+
+    .login-container label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .login-container input {
+      width: 97%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 10px;
+      background: #4e54c8;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .login-container button:hover {
+      background: #3b42b4;
+    }
+
+    .login-container p {
+      text-align: center;
+      color: #888;
+      font-size: 14px;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>Admin Login</h1>
+    <div id="error-message" class="error-message"></div>
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="Enter your admin email" required />
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Enter your admin password" required />
+    <button onclick="adminLogin()">Login</button>
+    <p>Authorized personnel only</p>
+  </div>
+
+  <script>
+    async function adminLogin() {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const errorMessage = document.getElementById("error-message");
+
+      // Clear previous error message
+      errorMessage.textContent = "";
+
+      if (!email || !password) {
+        errorMessage.textContent = "Both email and password are required!";
+        return;
+      }
+
+      // Frontend validation for email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        errorMessage.textContent = "Please enter a valid email address.";
+        return;
+      }
+
+      try {
+        const response = await fetch("http://127.0.0.1:5000/api/admin/login", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email, password }),
+});
+
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert("Login Successful!");
+          // Store the token securely in session storage
+          sessionStorage.setItem("adminToken", data.token);
+          // Redirect to the admin dashboard
+          window.location.href = "admin-dashboard.html";
+        } else {
+          errorMessage.textContent = data.message || "Invalid email or password.";
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        errorMessage.textContent = "Failed to login. Please try again later.";
+      }
+    }
+  </script>
+</body>
+</html>

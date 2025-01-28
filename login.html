@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="AI Healthcare Team">
+  <title>Login - AI Healthcare Chatbot</title>
+  <style>
+   body {
+          margin: 0;
+          font-family: 'Arial', sans-serif;
+          background: #f0f4f8;
+          height: 100vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          color: #333;
+      }
+
+      /* Navbar */
+      .navbar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 98%;
+          background: #2c3e50;
+          padding: 20px;
+          color: #fff;
+          font-size: 18px;
+          z-index: 1000;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      }
+
+      .navbar .logo {
+          font-weight: bold;
+          font-size: 24px;
+      }
+
+      .navbar .nav-links a {
+          color: #fff;
+          text-decoration: none;
+          margin-left: 20px;
+          transition: color 0.3s;
+      }
+
+      .navbar .nav-links a:hover {
+          color: #3498db;
+      }
+
+      /* Header */
+      header {
+          margin-top: 80px; /* Space below the navbar */
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+          text-align: center;
+          color: #34495e;
+          font-weight: bold;
+          font-size: 28px;
+          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Login Card */
+      .login-container {
+          background: #fff;
+          padding: 40px;
+          border-radius: 10px;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+          text-align: center;
+          width: 100%;
+          max-width: 450px;
+          margin-top: 20px; /* Adjust distance from the header */
+      }
+
+      .login-container h2 {
+          font-size: 26px;
+          margin-bottom: 15px;
+          color: #34495e;
+      }
+
+      .login-container p {
+          font-size: 14px;
+          color: #7f8c8d;
+          margin-bottom: 20px;
+      }
+
+
+      /* Form Styles */
+      .form-group {
+          text-align: left;
+          margin-bottom: 20px;
+      }
+
+      .form-group label {
+          font-size: 14px;
+          color: #7f8c8d;
+          display: block;
+          margin-bottom: 5px;
+      }
+
+      .form-group input {
+          width: 100%;
+          padding: 12px;
+          font-size: 16px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          background-color: #f9f9f9;
+      }
+
+      .form-group input:focus {
+          border-color: #3498db;
+          outline: none;
+          box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+      }
+
+      /* Button Styling */
+      .btn-login {
+          width: 100%;
+          padding: 12px;
+          font-size: 18px;
+          font-weight: bold;
+          color: #fff;
+          background: #3498db;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: 0.3s ease;
+          margin-bottom: 20px;
+      }
+
+      .btn-login:hover {
+          background: #2980b9;
+      }
+
+      /* Links */
+      .forgot-password, .signup-link {
+          font-size: 14px;
+          color: #7f8c8d;
+      }
+
+      .forgot-password a, .signup-link a {
+          color: #3498db;
+          text-decoration: none;
+          font-weight: bold;
+      }
+
+      .forgot-password a:hover, .signup-link a:hover {
+          text-decoration: underline;
+      }
+      
+      /* Loader Styles */
+      .loader {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.7);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+          flex-direction: column;
+      }
+
+      .loader .spinner {
+          border: 5px solid #f3f3f3;
+          border-top: 5px solid #6e8efb;
+          border-radius: 50%;
+          width: 50px;
+          height: 50px;
+          animation: spin 1s linear infinite;
+      }
+
+      .loader p {
+          margin-top: 20px;
+          font-size: 18px;
+          color: #fff;
+      }
+
+      /* Loading Animation */
+      .loading-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(255, 255, 255, 0.8);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+          visibility: hidden;
+      }
+
+      .loading-overlay.active {
+          visibility: visible;
+      }
+
+      .spinner {
+          width: 50px;
+          height: 50px;
+          border: 6px solid #ddd;
+          border-top: 6px solid #3498db;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+      }
+  </style>
+  <!-- Include Toastify -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">AI Healthcare Chatbot</div>
+        <div class="nav-links">
+            <a href="./index.html">Home</a>
+            <a href="./about-us.html">About</a>
+            <a href="./contact.html">Contact</a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        Welcome to AI Healthcare Chatbot
+    </header>
+
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <p id="loader-text">Welcome to AI Healthcare Chatbot</p>
+    </div>
+
+    <!-- Loading Animation -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Login Section -->
+    <div class="login-container">
+        <h2>Login</h2>
+        <p>Welcome back! Please login to your account.</p>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="identifier">Email or Username</label>
+                <input type="text" id="identifier" name="identifier" placeholder="Enter your email or username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="button" id="login-btn" class="btn-login">Login</button>
+            <p class="forgot-password">
+                <a href="./forgot-password.html">Forgot your password?</a>
+            </p>
+            <p class="signup-link">
+                Don't have an account? <a href="./signup.html">Sign Up</a>
+            </p>
+        </form>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const loader = document.getElementById('loader');
+            const loaderText = document.getElementById('loader-text');
+            loader.style.display = 'flex';
+            loaderText.textContent = 'Welcome to AI Healthcare Chatbot';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 2000);
+        };
+
+        document.getElementById('login-btn').addEventListener('click', async () => {
+            const loadingOverlay = document.getElementById('loading-overlay');
+            const identifier = document.getElementById('identifier').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (!identifier || !password) {
+                Toastify({
+                    text: "Please fill in all fields.",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "center",
+                    backgroundColor: "#ff6f61",
+                    close: true,
+                }).showToast();
+                return;
+            }
+
+            loadingOverlay.classList.add('active'); // Show loading animation
+
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ identifier, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    Toastify({
+                        text: "Login successful!",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "center",
+                        backgroundColor: "#4caf50",
+                        close: true,
+                    }).showToast();
+                    window.location.href = "./user.html";
+                } else {
+                    throw new Error(data.message || 'Login failed');
+                }
+            } catch (error) {
+                Toastify({
+                    text: "Error: " + error.message,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "center",
+                    backgroundColor: "#ff6f61",
+                    close: true,
+                }).showToast();
+            } finally {
+                loadingOverlay.classList.remove('active'); // Hide loading animation
+            }
+        });
+    </script>
+</body>
+</html>

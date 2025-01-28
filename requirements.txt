@@ -1,0 +1,7 @@
+Flask
+Flask-Bcrypt
+boto3
+python-dotenv
+Flask-Cors
+PyJWT
+openai
