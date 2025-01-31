@@ -254,7 +254,6 @@ a {
 }
 </style>
 </head>
-
 <body>
     <div class="navbar">
         <div class="logo">
@@ -327,7 +326,14 @@ a {
                         <option value="other">Other</option>
                     </select>
                 </div>
-                <button type="button" class="submit-btn" onclick="registerUser()">Sign Up</button>
+                <div class="form-group" id="verification-group" style="display: none;">
+                    <label for="verification-code">Enter Verification Code</label>
+                    <input type="text" id="verification-code" name="verification-code" required>
+                    <i class="fa fa-code"></i>
+                </div>
+
+                <button type="button" class="submit-btn" id="signup-button" onclick="registerUser()">Sign Up</button>
+                <button type="button" class="submit-btn" id="verify-button" style="display: none;" onclick="verifyCode()">Verify Code</button>
             </form>
             <p>Already have an account? <a href="./login.html">Log in here</a></p>
         </div>
@@ -339,15 +345,12 @@ a {
         &copy; 2025 AI Healthcare Chatbot. All Rights Reserved.
         <br>
         <small>Designed and Developed by AI Healthcare Team.</small>
-        <small><a href="./terms.html">Terms of Service</a> | <a href="./privacypolicy.html">Privacy Policy</a></small>
     </footer>
 
     <script>
         window.onload = function() {
             const loader = document.getElementById('loader');
-            const loaderText = document.getElementById('loader-text');
             loader.style.display = 'flex';
-            loaderText.textContent = 'Create an account';
             setTimeout(() => {
                 loader.style.display = 'none';
             }, 2000);
@@ -363,33 +366,41 @@ a {
         }
 
         async function registerUser() {
-            const loader = document.getElementById('loader');
-            const loaderText = document.getElementById('loader-text');
-            const name = document.getElementById('name').value;
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
+            const name = document.getElementById('name').value.trim();
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
             const countryCode = document.getElementById('country-code').value;
-            const mobile = document.getElementById('mobile').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
+            const mobile = document.getElementById('mobile').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const confirmPassword = document.getElementById('confirm-password').value.trim();
             const before = document.getElementById('before').value;
+
+            if (!name || !username || !email || !mobile || !password || !before) {
+                showToast('All fields are required.', 'error');
+                return;
+            }
 
             if (password !== confirmPassword) {
                 showToast('Passwords do not match!', 'error');
                 return;
             }
 
+            const loader = document.getElementById('loader');
             loader.style.display = 'flex';
-            loaderText.textContent = 'Registering user...';
 
             try {
-                const response = await fetch('http://localhost:5000/api/register', {
+                const response = await fetch('http://localhost:9000/api/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        name, username, email, mobile: `${countryCode} ${mobile}`, password, before
+                        name,
+                        username,
+                        email,
+                        mobile: `${countryCode}${mobile}`,
+                        password,
+                        before
                     })
                 });
 
@@ -397,15 +408,59 @@ a {
                 loader.style.display = 'none';
 
                 if (response.ok) {
-                    showToast('Registration successful! Please verify your email.');
+                    // Show the verification step after registration
+                    showToast('Registration successful! A verification code has been sent to your email.');
+                    document.getElementById('signup-button').style.display = 'none';
+                    document.getElementById('verify-button').style.display = 'inline-block';
+                    document.getElementById('verification-group').style.display = 'block';
                 } else {
                     showToast(`Error: ${data.message}`, 'error');
                 }
             } catch (error) {
                 loader.style.display = 'none';
                 showToast('An error occurred. Please try again.', 'error');
+                console.error(error);
             }
         }
+
+        async function verifyCode() {
+    const verificationCode = document.getElementById('verification-code').value.trim();
+
+    if (!verificationCode) {
+        showToast('Please enter the verification code.', 'error');
+        return;
+    }
+
+    const loader = document.getElementById('loader');
+    loader.style.display = 'flex';
+
+    try {
+        const response = await fetch('http://localhost:9000/api/auth/verify-code', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ verificationCode })
+        });
+
+        const data = await response.json();
+        loader.style.display = 'none';
+
+        if (response.ok) {
+            showToast('Account verified successfully!');
+            setTimeout(() => {
+                window.location.href = './login.html'; // Redirect to login page after success
+            }, 2000);
+        } else {
+            console.error('Server Response:', data); // Log error details
+            showToast(`Error: ${data.message || 'Invalid verification code'}`, 'error');
+        }
+    } catch (error) {
+        loader.style.display = 'none';
+        showToast('An error occurred. Please try again.', 'error');
+    }
+}
+
     </script>
 </body>
 </html>

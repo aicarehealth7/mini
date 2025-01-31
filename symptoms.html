@@ -1,373 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="author" content="AI Healthcare Team" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
-  <title>Symptom Checker - AI Healthcare</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Symptom Checker</title>
   <style>
-    /* Global Styles */
-    * {
+    body {
+      font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Roboto', sans-serif;
-      line-height: 1.6;
-      background: #f5f7fa;
-      color: #333;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    /* Navbar */
-    nav {
-      background-color: #007bff;
+      background: linear-gradient(to right, #2c3e50, #4ca1af);
       color: white;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      padding: 15px 20px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      height: 100vh;
     }
 
-    nav ul {
-      display: flex;
-      list-style: none;
-    }
-
-    nav ul li {
-      margin: 0 15px;
-    }
-
-    nav ul li a {
-      color: white;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-
-    nav ul li a:hover {
-      color: #ffd700;
-    }
-
-    nav .logo img {
-      height: 50px;
-    }
-
-    nav .btn-group a {
-      padding: 8px 15px;
-      margin-left: 10px;
-      background-color: white;
-      color: #007bff;
-      border-radius: 5px;
-      font-weight: 500;
-      border: 2px solid transparent;
-      transition: all 0.3s ease;
-    }
-
-    nav .btn-group a:hover {
-      background-color: transparent;
-      color: white;
-      border: 2px solid white;
-    }
-
-    /* Symptom Checker Section */
-    .checker-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 60px 20px;
-      gap: 30px;
-      background: #ffffff;
-      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-      margin: 50px 20px;
-      border-radius: 15px;
-    }
-
-    .checker-container h1 {
-      font-size: 2.5rem;
-      color: #007bff;
-      margin-bottom: 20px;
-    }
-
-    .checker-container form {
+    .container {
+      width: 90%;
+      max-width: 700px;
       background: white;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      color: black;
       padding: 30px;
-      border-radius: 10px;
-      width: 100%;
-      max-width: 600px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #0056b3;
+    }
+
+    .search-bar {
       display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .checker-container form select,
-    .checker-container form button {
-      width: 100%;
-      padding: 12px;
+      gap: 10px;
       margin-bottom: 20px;
-      border-radius: 5px;
-      border: 1px solid #ddd;
-      font-size: 1rem;
-      transition: all 0.3s ease;
     }
 
-    .checker-container form select:hover,
-    .checker-container form button:hover {
-      border-color: #007bff;
+    input {
+      flex: 1;
+      padding: 12px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
       outline: none;
     }
 
-    .checker-container form button {
-      background-color: #007bff;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .checker-container form button:hover {
-      background-color: #0056b3;
-    }
-
-    /* Results Container */
-    .results-container {
-      background: #f9f9f9;
-      padding: 20px;
-      border-radius: 10px;
-      width: 100%;
-      max-width: 600px;
-      text-align: center;
-      display: none;
-    }
-
-    .results-container h3 {
-      color: #007bff;
-      font-size: 1.8rem;
-      margin-bottom: 15px;
-    }
-
-    .results-container p {
-      font-size: 1.2rem;
-      color: #555;
-      margin-bottom: 15px;
-    }
-
-    /* Symptom Cards Section */
-    .symptom-cards {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      margin-top: 40px;
-    }
-
-    .symptom-card {
-      background: #ffffff;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
-      padding: 20px;
-      text-align: center;
-      max-width: 250px;
-      flex: 1;
-      transition: transform 0.3s ease;
-    }
-
-    .symptom-card:hover {
-      transform: translateY(-10px);
-    }
-
-    .symptom-card img {
-      width: 80px;
-      margin-bottom: 15px;
-    }
-
-    .symptom-card h4 {
-      font-size: 1.4rem;
-      color: #007bff;
-      margin-bottom: 10px;
-    }
-
-    .symptom-card p {
+    button {
+      padding: 12px 20px;
       font-size: 1rem;
-      color: #555;
-    }
-
-    /* Read More Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.4);
-      overflow: auto;
-    }
-
-    .modal-content {
-      background-color: #ffffff;
-      margin: 15% auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-      max-width: 800px;
+      background-color: #0056b3;
+      color: white;
+      border: none;
       border-radius: 8px;
-    }
-
-    .modal-header {
-      font-size: 1.8rem;
-      color: #007bff;
-      margin-bottom: 15px;
-    }
-
-    .modal-body p {
-      font-size: 1.2rem;
-      color: #555;
-    }
-
-    .close {
-      color: #aaa;
-      font-size: 1.5rem;
-      font-weight: bold;
-      float: right;
-      transition: color 0.3s ease;
-    }
-
-    .close:hover,
-    .close:focus {
-      color: black;
-      text-decoration: none;
       cursor: pointer;
+      transition: 0.3s;
     }
 
+    button:hover {
+      background-color: #003d80;
+    }
+
+    .suggestions {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .suggestion-item {
+      padding: 15px;
+      background: #f9f9f9;
+      border-left: 5px solid #007bff;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .suggestion-item strong {
+      color: #007bff;
+    }
+
+    .recommendations {
+      font-size: 0.9rem;
+      color: #444;
+      margin-top: 5px;
+    }
+
+    .no-results {
+      text-align: center;
+      font-size: 1.1rem;
+      color: red;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav>
-    <div class="logo">
-      <img src="./images/health-care-logo_981061-34281-removebg-preview-removebg-preview.png" alt="Logo" />
-    </div>
-    <ul>
-      <li><a href="./about-us.html">About</a></li>
-      <li><a href="./features-page.html">Features</a></li>
-      <li><a href="./contact.html">Contact</a></li>
-    </ul>
-    <div class="btn-group">
-      <a href="./login.html">Login</a>
-      <a href="./admin.html">Admin</a>
-    </div>
-  </nav>
 
-  <!-- Symptom Checker Section -->
-  <section class="checker-container">
-    <h1>Symptom Checker</h1>
-    <form id="symptomForm">
-      <select id="symptomSelect">
-        <option value="">Select a Symptom</option>
-        <option value="fever">Fever</option>
-        <option value="headache">Headache</option>
-        <option value="cough">Cough</option>
-        <option value="fatigue">Fatigue</option>
-        <option value="nausea">Nausea</option>
-      </select>
-      <button type="submit">Check Symptoms</button>
-    </form>
-
-    <!-- Results Section -->
-    <div class="results-container" id="resultsContainer">
-      <h3>Possible Conditions</h3>
-      <p id="resultText"></p>
-      <a href="#moreInfo" id="moreInfoLink" onclick="showModal()">Read More</a>
+  <div class="container">
+    <h1>🩺 Smart Symptom Checker</h1>
+    <div class="search-bar">
+      <input type="text" id="symptomInput" placeholder="Enter your symptom..." />
+      <button onclick="getSuggestions()">Check</button>
     </div>
 
-    <!-- Symptom Cards -->
-    <div class="symptom-cards">
-      <div class="symptom-card">
-        <img src="./images/fever.png" alt="Fever" />
-        <h4>Fever</h4>
-        <p>Indicates an infection or illness, often accompanied by chills or sweating.</p>
-      </div>
-      <div class="symptom-card">
-        <img src="./images/headace.jpg" alt="Headache" />
-        <h4>Headache</h4>
-        <p>Could be caused by stress, dehydration, or a cold.</p>
-      </div>
-      <div class="symptom-card">
-        <img src="./images/cough.png" alt="Cough" />
-        <h4>Cough</h4>
-        <p>Common symptom of respiratory infections like colds or flu.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Modal for Read More -->
-  <div id="symptomModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <div class="modal-header" id="modalHeader">Symptom Details</div>
-      <div class="modal-body" id="modalBody">
-        <p>Loading...</p>
-      </div>
-    </div>
+    <div class="suggestions" id="suggestions"></div>
   </div>
 
   <script>
-    document.getElementById('symptomForm').addEventListener('submit', function(event) {
-      event.preventDefault();
+    const medicineDatabase = {
+      "fever": { 
+        medicines: ["Paracetamol", "Ibuprofen", "Aspirin"], 
+        recommendations: "Drink plenty of water, rest, and take medication if fever exceeds 100°F."
+      },
+      "cold": { 
+        medicines: ["Cetrizine", "Phenylephrine", "Chlorpheniramine"], 
+        recommendations: "Stay warm, drink hot fluids, and take antihistamines if needed."
+      },
+      "headache": { 
+        medicines: ["Aspirin", "Ibuprofen", "Naproxen"], 
+        recommendations: "Reduce stress, rest in a dark room, and stay hydrated."
+      },
+      "stomach ache": { 
+        medicines: ["Omeprazole", "Ranitidine", "Dicyclomine"], 
+        recommendations: "Avoid spicy food, drink chamomile tea, and rest."
+      },
+      "allergy": { 
+        medicines: ["Loratadine", "Cetirizine", "Fexofenadine"], 
+        recommendations: "Avoid allergens, take antihistamines, and use nasal sprays if needed."
+      },
+      "sore throat": { 
+        medicines: ["Strepsils", "Throat Lozenges", "Ibuprofen"], 
+        recommendations: "Gargle with warm salt water and drink warm honey tea."
+      },
+      "diarrhea": { 
+        medicines: ["Loperamide", "ORS Solution", "Probiotics"], 
+        recommendations: "Drink ORS, avoid dairy, and consume bananas and rice."
+      },
+      "cough": { 
+        medicines: ["Dextromethorphan", "Guaifenesin", "Honey Syrup"], 
+        recommendations: "Use steam inhalation and take honey before sleep."
+      },
+      "flu": { 
+        medicines: ["Tamiflu", "Ibuprofen", "Paracetamol"], 
+        recommendations: "Rest, drink fluids, take antivirals if prescribed, and monitor fever."
+      },
+      "migraine": { 
+        medicines: ["Sumatriptan", "Ibuprofen", "Naproxen"], 
+        recommendations: "Rest in a dark, quiet room, stay hydrated, and avoid triggers like caffeine."
+      },
+      "chest pain": { 
+        medicines: ["Aspirin", "Nitroglycerin"], 
+        recommendations: "Seek emergency medical help if severe or persistent. Avoid exertion."
+      },
+      "anxiety": { 
+        medicines: ["Alprazolam", "Sertraline", "Clonazepam"], 
+        recommendations: "Practice deep breathing, meditation, and seek therapy if persistent."
+      },
+      "high blood pressure": { 
+        medicines: ["Lisinopril", "Amlodipine", "Losartan"], 
+        recommendations: "Reduce salt intake, exercise regularly, and monitor blood pressure."
+      },
+      "skin rash": { 
+        medicines: ["Hydrocortisone", "Calamine Lotion", "Antihistamines"], 
+        recommendations: "Avoid irritants, apply soothing creams, and keep the area clean."
+      },
+      "diabetes": { 
+        medicines: ["Metformin", "Insulin", "Glipizide"], 
+        recommendations: "Monitor blood sugar, maintain a low-carb diet, and exercise regularly."
+      },
+      "dehydration": { 
+        medicines: ["ORS Solution", "Electrolyte Drinks"], 
+        recommendations: "Drink plenty of fluids and avoid alcohol or caffeine."
+      },
+      "asthma": { 
+        medicines: ["Albuterol", "Budesonide", "Montelukast"], 
+        recommendations: "Use inhalers, avoid allergens, and seek emergency help for breathing issues."
+      },
+      "sinus infection": { 
+        medicines: ["Amoxicillin", "Decongestants", "Antihistamines"], 
+        recommendations: "Use steam therapy, stay hydrated, and take antibiotics if prescribed."
+      }
+    };
 
-      let symptom = document.getElementById('symptomSelect').value;
-      let resultText = '';
-      if (symptom === 'fever') {
-        resultText = 'Fever may indicate an infection such as the flu or a cold. It can also be caused by inflammation or an immune response.';
-      } else if (symptom === 'headache') {
-        resultText = 'Headaches can be caused by tension, dehydration, or various illnesses. If severe, it may indicate a more serious condition.';
-      } else if (symptom === 'cough') {
-        resultText = 'Coughs are often a symptom of respiratory issues like colds, flu, or allergies. Persistent coughs may require medical attention.';
+    function getSuggestions() {
+      const symptomInput = document.getElementById('symptomInput').value.toLowerCase();
+      const suggestionsDiv = document.getElementById('suggestions');
+      suggestionsDiv.innerHTML = '';
+
+      if (symptomInput && medicineDatabase[symptomInput]) {
+        const { medicines, recommendations } = medicineDatabase[symptomInput];
+
+        const suggestionItem = document.createElement('div');
+        suggestionItem.className = 'suggestion-item';
+        suggestionItem.innerHTML = `
+          <h3>Possible Condition: <strong>${symptomInput.charAt(0).toUpperCase() + symptomInput.slice(1)}</strong></h3>
+          <p><strong>Recommended Medicines:</strong> ${medicines.join(", ")}</p>
+          <p class="recommendations"><strong>Recommended Actions:</strong> ${recommendations}</p>
+        `;
+
+        suggestionsDiv.appendChild(suggestionItem);
       } else {
-        resultText = 'Please consult with a healthcare professional for further diagnosis.';
+        suggestionsDiv.innerHTML = '<p class="no-results">⚠️ No suggestions found. Please consult a doctor.</p>';
       }
-
-      document.getElementById('resultText').innerText = resultText;
-      document.getElementById('resultsContainer').style.display = 'block';
-    });
-
-    function showModal() {
-      let symptom = document.getElementById('symptomSelect').value;
-      let header = '';
-      let body = '';
-
-      if (symptom === 'fever') {
-        header = 'Fever';
-        body = `<p>Fever is an increase in body temperature, often caused by an infection. It is usually accompanied by chills, sweating, and fatigue. Common causes include viral or bacterial infections like the flu, cold, and other respiratory illnesses. Fever can be a sign of your body fighting infection.</p><p>If you have persistent fever for more than a few days or other severe symptoms, consult with a healthcare provider immediately.</p>`;
-      } else if (symptom === 'headache') {
-        header = 'Headache';
-        body = `<p>Headaches can be caused by various factors, such as dehydration, tension, stress, sinus issues, or even a more serious underlying condition. Tension headaches are common, and they are often related to stress or poor posture. Migraine headaches can cause severe pain and might be accompanied by nausea or sensitivity to light.</p><p>If headaches are frequent or severe, it's important to seek medical advice.</p>`;
-      } else if (symptom === 'cough') {
-        header = 'Cough';
-        body = `<p>A cough is a common reflex action to clear your airways of mucus, irritants, or foreign particles. It can be caused by respiratory infections like the cold, flu, pneumonia, or conditions like asthma. If persistent, a cough may indicate a chronic condition or a more serious infection.</p><p>Consult a doctor if the cough lasts more than a few weeks or if you're experiencing difficulty breathing.</p>`;
-      }
-
-      document.getElementById('modalHeader').innerText = header;
-      document.getElementById('modalBody').innerHTML = body;
-
-      document.getElementById('symptomModal').style.display = 'block';
-    }
-
-    function closeModal() {
-      document.getElementById('symptomModal').style.display = 'none';
     }
   </script>
+
 </body>
 </html>

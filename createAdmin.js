@@ -17,7 +17,7 @@ mongoose
 
 const createAdmin = async () => {
     // Hash the admin password
-    const hashedPassword = await bcrypt.hash('Abhi@2003', 10); // Replace with a secure password
+    const hashedPassword = await bcrypt.hash('Admin@0987', 10); // Replace with a secure password
 
     // Create a new admin
     const admin = new Admin({

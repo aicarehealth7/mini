@@ -298,7 +298,7 @@
             loadingOverlay.classList.add('active'); // Show loading animation
 
             try {
-                const response = await fetch('http://localhost:5000/api/auth/login', {
+                const response = await fetch('http://localhost:9000/api/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -317,7 +317,7 @@
                         backgroundColor: "#4caf50",
                         close: true,
                     }).showToast();
-                    window.location.href = "./user.html";
+                    window.location.href = "./dashboard.html";
                 } else {
                     throw new Error(data.message || 'Login failed');
                 }
